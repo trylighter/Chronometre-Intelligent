@@ -11,13 +11,16 @@
 
 
 int main(){
+    mraa_init();
     Led Led1(2);
     while(1)
     {
+        
         Led1.allumerLed();
-        sleep(2);
+        sleep(1);
         Led1.eteindreLed();
-        sleep(2);
+        sleep(1);
+  
     }
 	return(0);
 }
