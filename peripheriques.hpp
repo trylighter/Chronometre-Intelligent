@@ -14,15 +14,15 @@ class Peripherique
 {
 public:
   Peripherique();
-  virtual void* read()=0;
-  virtual void* write()=0;
+  virtual void read()=0;
+  virtual int write()=0;
 };
 class Digital : public Peripherique
 {
 public :
   Digital(int input_port);
   ~Digital();
-  virtual void* read();
+  virtual int read();
   virtual int write(void *arg);
 private:
   mraa_gpio_context m_gpio;
@@ -37,9 +37,17 @@ private:
 class Analogique
 {
 public:
+  virtual float read();
+  virtual int read();
   Analogique(int input_port);
   ~Analogique();
 private:
   mraa_aio_context  m_analogique;
-}
+};
+class I2C{
+  I2C(int input_port);
+  ~I2C();
+  virtual void* read(void * data,int length);
+  virtual int write(void *arg, int length);
+};
 	     
