@@ -10,13 +10,14 @@
 #include <string>
 
 using namespace std;
+
 class Peripherique
 {
 public:
   Peripherique();
+  virtual void read();
+  virtual void write();
 };
-
-
 
 
 class Digital : public Peripherique
@@ -24,13 +25,18 @@ class Digital : public Peripherique
 public :
   Digital(int input_port);
   ~Digital();
-   int read();
-   int write(void *arg);
+   int read_port();
+   int write_port(int arg);
 protected:
-  mraa_gpio_context m_gpio;
+  mraa_gpio_context m_gpio_in,m_gpio_out;
 };
 
 
+class Ultrason : public Digital
+{
+  Ultrason(int input_port);
+  virtual void read();
+};
 
 
 class Led : public Digital{
@@ -44,13 +50,13 @@ private:
 
 
 
-class Analogique
+class Analogique : public Peripherique
 {
 public:
   Analogique(int input_port);
   ~Analogique();
-  //float read();
-  int read();
+  float read_float_port();
+  int read_port();
 protected:
   mraa_aio_context  m_analogique;
 };
