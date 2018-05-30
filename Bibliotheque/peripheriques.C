@@ -9,11 +9,9 @@ Digital::Digital(int input_port):Peripherique()
   m_gpio = mraa_gpio_init(input_port);
 }
   
-void* Digital::read()
+int Digital::read()
 {
-    int *resultat = new int;
-    *resultat=mraa_gpio_read(m_gpio);
-  return resultat;
+  return mraa_gpio_read(m_gpio);
 }
 int Digital::write(void * arg)
 {
@@ -36,4 +34,20 @@ void Led::eteindre_led(){
   int i = 0;
   Digital::write((void *) &i);
 }
+int Analogique::read()
+{
+    return mraa_aio_read(m_analogique);
+}
+/*float Analogique::read()
+{
+    return mraa_aio_read_float(m_analogique);
+}*/
+Analogique::Analogique(int input_port):Peripherique()
+{
+    m_analogique = mraa_gpio_init(input_port);
+}
+Analogique::~Analogique(){
+    mraa_aio_close(m_analogique);
+}
+
 

@@ -14,8 +14,6 @@ class Peripherique
 {
 public:
   Peripherique();
-  virtual void* read()=0;
-  virtual int write(void *arg)=0;
 };
 
 
@@ -26,8 +24,8 @@ class Digital : public Peripherique
 public :
   Digital(int input_port);
   ~Digital();
-   virtual void* read();
-   virtual int write(void *arg);
+   int read();
+   int write(void *arg);
 protected:
   mraa_gpio_context m_gpio;
 };
@@ -51,6 +49,8 @@ class Analogique
 public:
   Analogique(int input_port);
   ~Analogique();
+  //float read();
+  int read();
 protected:
   mraa_aio_context  m_analogique;
 };
